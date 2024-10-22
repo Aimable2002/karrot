@@ -4,10 +4,10 @@
     "slug": "karrot",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "https://downloadr2.apkmirror.com/wp-content/uploads/2023/02/30/63ec3579b1618.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "https://downloadr2.apkmirror.com/wp-content/uploads/2023/02/30/63ec3579b1618.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "https://downloadr2.apkmirror.com/wp-content/uploads/2023/02/30/63ec3579b1618.png",
         "backgroundColor": "#ffffff"
       }
     },

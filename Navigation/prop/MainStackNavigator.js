@@ -9,6 +9,10 @@ import Chat from '../../app/screen/chat.jsx';
 import Wallet from '../../app/screen/wallet.jsx';
 import Notification from '../../app/screen/Notification.jsx';
 import PostAdd from '../../app/screen/PostAdd.jsx';
+import Vehicle from '../../app/BackScreen/Vehicle.jsx';
+import Electronics from '../../app/BackScreen/Electronics.jsx';
+import Sport from '../../app/BackScreen/Sport.jsx';
+import Fashion from '../../app/BackScreen/Fashion.jsx';
 
 const Stack = createStackNavigator();
 
@@ -75,6 +79,10 @@ const MainStackNavigator = () => {
       <Stack.Screen name='Notification' component={Notification} options={{headerShown: true}} />
       <Stack.Screen name='wallet' component={Wallet} options={{headerShown: true}} />
       <Stack.Screen name='Post' component={PostAdd} options={{headerShown: true}} />
+      <Stack.Screen name='Vehicle' component={Vehicle} options={{headerShown: true}} />
+      <Stack.Screen name='Electronics' component={Electronics} options={{headerShown: true}} />
+      <Stack.Screen name='Sport' component={Sport} options={{headerShown: true}} />
+      <Stack.Screen name='Fashion' component={Fashion} options={{headerShown: true}} />
     </Stack.Navigator>
   );
 };

@@ -2,20 +2,24 @@ import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons'
 import { Ionicons } from '@expo/vector-icons'
+import { TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 
 const CategoryList = () => {
 
+  const navigation = useNavigation()
+
     const initialCategories = [
         { name: 'post ad', icon: <MaterialIcons name="note-add" size={24} color="black" />, count: 0 },
-        { name: 'vehicles', icon: <MaterialIcons name="directions-car" size={24} color="black" />, count: 0 },
+        { name: 'vehicles', icon: <MaterialIcons name="directions-car" size={24} color="black" />, count: 0, link: 'Vehicle' },
         { name: 'property', icon: <MaterialIcons name="house" size={24} color="black" />, count: 0 },
         { name: 'Phones & Tablets', icon: <Ionicons name="phone-portrait-outline" size={24} color="black" />, count: 0 },
-        { name: 'Electronics', icon: <MaterialIcons name="usb" size={24} color="black" />, count: 0 },
+        { name: 'Electronics', icon: <MaterialIcons name="usb" size={24} color="black" />, count: 0, link: 'Electronics' },
         { name: 'Home Appliiance & Furniture', icon: <MaterialIcons name="chair" size={24} color="black" />, count: 0 },
         { name: 'Health & Beauty', icon: <Ionicons name="medkit-outline" size={24} color="black" />},
-        { name: 'Fashion', icon: <Ionicons name="shirt-outline" size={24} color="black" />, count: 0 },
-        { name: 'Sports, Art & Outdoor', icon: <Ionicons name="american-football-outline" size={24} color="black" />, count: 0 },
+        { name: 'Fashion', icon: <Ionicons name="shirt-outline" size={24} color="black" />, count: 0, link: 'Fashion' },
+        { name: 'Sports, Art & Outdoor', icon: <Ionicons name="american-football-outline" size={24} color="black" />, count: 0, link: 'Sport' },
         { name: 'Services', icon: <MaterialIcons name="support-agent" size={24} color="black" />, count: 0 },
         { name: 'Jobs', icon: <Ionicons name="bag-handle-outline" size={24} color="black" />, count: 0 },
         { name: 'Pets', icon: <Ionicons name="logo-snapchat" size={24} color="black" />, count: 0 },
@@ -29,10 +33,12 @@ const CategoryList = () => {
   return (
     <View style={styles.Category}>
               {initialCategories.map((category, index) => (
-        <View key={index} style={styles.Column}>
+        <TouchableOpacity key={index} style={styles.Column}
+          onPress={() => category.link && navigation.navigate(category.link)}
+        >
           {category.icon}
           <Text style={{ color: '#000', textAlign: 'center' }}>{category.name}</Text>
-        </View>
+        </TouchableOpacity>
       ))}
         </View>
   )

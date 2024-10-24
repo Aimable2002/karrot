@@ -5,6 +5,10 @@ import { Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SplashScreen from  '../../app/screen/SplashScreen.js'
 import LoadingScreen from '../../app/screen/LoadingScreen.js'
+import Chat from '../../app/screen/chat.jsx';
+import Wallet from '../../app/screen/wallet.jsx';
+import Notification from '../../app/screen/Notification.jsx';
+import PostAdd from '../../app/screen/PostAdd.jsx';
 
 const Stack = createStackNavigator();
 
@@ -31,31 +35,31 @@ const MainStackNavigator = () => {
           headerRight: () => (
             <View style={{ flexDirection: 'row', marginRight: 15, justifyContent: 'space-between' }}>
               <TouchableOpacity 
-                onPress={() => navigation.navigate('NotificationPage')}
+                onPress={() => navigation.navigate('Notification')}
                 style={{backgroundColor: '#fff', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <Icon name="notifications-outline" size={25} style={{ alignSelf: 'center', color: '#ff7637' }} />
               </TouchableOpacity>
               <TouchableOpacity 
-                onPress={() => navigation.toggleDrawer()}
+                onPress={() => navigation.navigate('Chat Room')}
                 style={{backgroundColor: '#fff', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <Icon name="chatbox-outline" size={25} style={{ alignSelf: 'center', color: '#ff7637' }} />
               </TouchableOpacity>
               <TouchableOpacity 
-                onPress={() => navigation.navigate('NotificationPage')}
+                onPress={() => navigation.navigate('wallet')}
                 style={{backgroundColor: '#fff', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <Icon name="wallet-outline" size={25} style={{alignSelf: 'center', color: '#ff7637'}} />
               </TouchableOpacity>
               <TouchableOpacity 
-                onPress={() => navigation.toggleDrawer()}
+                onPress={() => navigation.navigate('account')}
                 style={{backgroundColor: '#fff', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <Icon name="person-outline" size={25} style={{ alignSelf: 'center', color: '#ff7637' }} />
               </TouchableOpacity>
               <TouchableOpacity 
-                onPress={() => navigation.navigate('NotificationPage')}
+                onPress={() => navigation.navigate('Post')}
                 style={{backgroundColor: '#fff', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <Icon name="add-outline" size={25} style={{ alignSelf: 'center', color: '#ff7637' }} />
@@ -67,6 +71,10 @@ const MainStackNavigator = () => {
           },
         })}
       />
+      <Stack.Screen name='Chat Room' component={Chat} options={{headerShown: true}} />
+      <Stack.Screen name='Notification' component={Notification} options={{headerShown: true}} />
+      <Stack.Screen name='wallet' component={Wallet} options={{headerShown: true}} />
+      <Stack.Screen name='Post' component={PostAdd} options={{headerShown: true}} />
     </Stack.Navigator>
   );
 };

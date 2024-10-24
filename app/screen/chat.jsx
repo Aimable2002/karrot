@@ -1,9 +1,10 @@
 import React from 'react'
+import { Text } from 'react-native'
 
-const chat = () => {
+const Chat = () => {
   return (
     <Text>chat</Text>
   )
 }
 
-export default chat
+export default Chat

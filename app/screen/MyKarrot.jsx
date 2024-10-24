@@ -3,6 +3,7 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { MaterialIcons} from '@expo/vector-icons'
 import { ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Ionicons';
+import OtherKarrot from '../components/OtherKarrot';
 
 const MyKarrot = () => {
 
@@ -77,6 +78,8 @@ const MyKarrot = () => {
             </View>
           </View>
         </View>
+        <OtherKarrot />
+        <View style={{marginBottom: 40}}></View>
         </ScrollView>
     </View>
   )

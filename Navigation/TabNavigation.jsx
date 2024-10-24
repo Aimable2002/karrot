@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Home from '../app/screen/Home';
 import MyLocal from '../app/screen/MyLocal';
 import MyKarrot from '../app/screen/MyKarrot';
+import Chat from '../app/screen/chat';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +40,7 @@ const TabNavigator = () => {
       <Tab.Screen name="Home" options={{ headerShown: false }} component={Home} />
       <Tab.Screen name="Local" options={{ headerShown: false }} component={MyLocal} />
       <Tab.Screen name="Explore" options={{ headerShown: false }} component={Home} />
-      <Tab.Screen name="chat" options={{ headerShown: false }} component={Home} />
+      <Tab.Screen name="chat" options={{ headerShown: false }} component={Chat} />
       <Tab.Screen name="account" options={{ headerShown: false }} component={MyKarrot} />
     </Tab.Navigator>
   );

@@ -1,59 +1,76 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, ActivityIndicator} from 'react-native'
 import { Dimensions } from 'react-native';
 const { width } = Dimensions.get('window');
 
 import { MaterialIcons} from '@expo/vector-icons'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getAds } from '../service/adService';
 
+const truncateString = (str, maxLength) => {
+  if(str.length <= maxLength ){
+    return str;
+  }else{
+    const truncatedString = str.slice(0, maxLength);
+    return truncatedString + (truncatedString.endsWith('') ? '...' : '...');
+  }
+}
 
 const ProductGrid = () => {
 
-  const images = [
-    'https://nextui.org/images/card-example-6.jpeg',
-    'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp',
-  ];
+  const [loading, setLoading] = useState(true);
+  const [ads, setAds] = useState([]);
 
+  useEffect(() => {
+    const fetchAds = async () => {
+      setLoading(true); // Start loading
+      try {
+        const fetchedAds = await getAds(1);
+        setAds(fetchedAds);
+      } catch (error) {
+        Alert.alert('Error', 'Failed to fetch ads', error.message);
+      } finally {
+        setLoading(false); // End loading
+      }
+    };
+    fetchAds();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        {/* <Text>Loading...</Text> */}
+      </View>
+    );
+  }
   return (
-    // <View style={styles.Category}>
-    //     <View style={styles.Column}>
-    //         <View style={{flexDirection: 'column'}}>
-    //             <View>
-    //                 <Image />
-    //             </View>
-    //             <View>
-    //                 <Text>This is title</Text>
-    //                 <Text>this is h2</Text>
-    //             </View>
-    //         </View>
-    //     </View>
-    // </View>
 
     <View style={styles.recommendedGrid}>
-          {images.map((img, index) => (
+          { ads.length == 0 && !loading ? <Text>No ads shown</Text> : ads.map((ad, index) => (
             <TouchableOpacity key={index} style={styles.recommendedItem}>
-              <Image source={{ uri: img }} style={styles.recommendedImage} />
+              <Image source={{ uri: ad.images[0] }} style={styles.recommendedImage} />
               <View style={styles.recommendedTextContainer}>
-                <Text style={styles.recommendedTitle}>AC Camera</Text>
+                <Text style={styles.recommendedTitle}>{truncateString(ad.title, 21)}</Text>
                 <View style={styles.recommendedAmountContainer}>
-                  <Text style={{color: '#FC9D4F'}}>46,000 RWF</Text>
+                  <Text style={{color: '#FC9D4F'}}>{ad.price.toLocaleString()} RWF</Text>
                   <Text style={styles.text}></Text>
                 </View>
-                <View style={{backgroundColor: '#E0DCD9', borderRadius: 5, padding: 2}}>
+                <View style={{backgroundColor: '#E0DCD9', borderRadius: 5, padding: 2, marginTop: 2}}>
                   <View style={{flexDirection: 'row'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <MaterialIcons name="place" size={15} color="black" /> 
-                      <Text>Kigali</Text>
+                      <Text>{ad.location}</Text>
                     </View>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                      <MaterialIcons name="local-offer" size={15} color="black" />
-                      <Text>new</Text>
+                    <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 4}}>
+                      <MaterialIcons name="local-offer" size={15} color="#757373" />
+                      <Text style={{color: '#757373'}}>{ad.condition}</Text>
                     </View>
                   </View>
                 </View>
-                <View style={{flexDirection: 'row', alignItems: 'center', padding: 2}}>
+                <View style={{flexDirection: 'row', alignItems: 'center', padding: 2, marginTop: 2}}>
                   <Icon name="person-outline" size={20} style={{ alignSelf: 'center', color: '#FC9D4F' }} />
-                  <Text style={{color: '#FC9D4F', marginLeft: 4}}>karrot</Text>
+                  <Text style={{color: '#FC9D4F', marginLeft: 4}}>GadgetDealer</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -93,6 +110,7 @@ const styles = StyleSheet.create({
   },
   recommendedTitle: {
     fontWeight: 'bold',
+    fontSize: 12
   },
   recommendedAmountContainer: {
     flexDirection: 'row',

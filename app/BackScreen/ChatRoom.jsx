@@ -1,118 +1,5 @@
-
-// import React, { useState } from "react";
-// import { View, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
-// import { Chip } from 'react-native-paper';
-
-// const users = [
-//   { id: "1", name: "Alice Johnson", email: "alice@example.com", avatar: "https://example.com/alice.jpg" },
-//   { id: "2", name: "Bob Smith", email: "bob@example.com", avatar: "https://example.com/bob.jpg" },
-//   { id: "3", name: "Charlie Brown", email: "charlie@example.com", avatar: "https://example.com/charlie.jpg" },
-// ];
-
-// const Chat = () => {
-//   const [selectedUsers, setSelectedUsers] = useState(new Set());
-
-
-//   const toggleUserSelection = (id) => {
-//     const newSelectedUsers = new Set(selectedUsers);
-//     if (newSelectedUsers.has(id)) {
-//       newSelectedUsers.delete(id);
-//     } else {
-//       newSelectedUsers.add(id);
-//     }
-//     setSelectedUsers(newSelectedUsers);
-//   };
-
-//   const renderItem = ({ item }) => (
-//     <TouchableOpacity style={styles.listItem} onPress={() => toggleUserSelection(item.id)}>
-//       <View style={styles.userAvatar}>
-//         <Text style={styles.avatarText}>{item.name.charAt(0)}</Text>
-//       </View>
-//       <View style={styles.flexOne}>
-//         <Text style={styles.name}>{item.name}</Text>
-//         <Text style={styles.email}>{item.email}</Text>
-//       </View>
-//       {selectedUsers.has(item.id) && (
-//         <View style={styles.selectedIndicator}>
-//           <Text style={styles.selectedText}>Selected</Text>
-//         </View>
-//       )}
-//     </TouchableOpacity>
-//   );
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.label}>Chat With</Text>
-//       <FlatList
-//         data={users}
-//         keyExtractor={(item) => item.id}
-//         renderItem={renderItem}
-//       />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     padding: 16,
-//     flex: 1,
-//   },
-//   label: {
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     marginBottom: 8,
-//   },
-//   listItem: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     paddingVertical: 12,
-//     paddingHorizontal: 16,
-//     borderBottomWidth: 1,
-//     borderBottomColor: '#ccc',
-//   },
-//   userAvatar: {
-//     width: 40,
-//     height: 40,
-//     backgroundColor: 'white',
-//     borderRadius: 20,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     marginRight: 12,
-//   },
-//   avatarText: {
-//     fontSize: 18,
-//     color: '#FF7F50', // Change this to your desired color
-//     fontWeight: 'bold',
-//   },
-//   flexOne: {
-//     flex: 1,
-//   },
-//   name: {
-//     fontSize: 16,
-//     fontWeight: '600',
-//   },
-//   email: {
-//     fontSize: 14,
-//     color: '#888',
-//   },
-//   selectedIndicator: {
-//     backgroundColor: '#FF7F50',
-//     borderRadius: 20,
-//     padding: 4,
-//   },
-//   selectedText: {
-//     color: 'white',
-//     fontSize: 12,
-//   },
-// });
-
-// export default Chat;
-
-
-
-
 import React, { useState, useMemo, useEffect  } from "react";
-import { View, ScrollView, Text, TouchableOpacity, StyleSheet, FlatList, Alert } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import { Chip } from 'react-native-paper'; // Ensure you have react-native-paper installed
 // import React, { useState} from 'react';
 import { getUserById } from '../service/userService';
@@ -123,7 +10,7 @@ const users = [
   { id: "3", name: "Charlie Brown", email: "charlie@example.com", avatar: "https://example.com/charlie.jpg" },
 ];
 
-const Chat = ({ conversations }) => {
+const ChatRoom = ({ conversations }) => {
   const [values, setValues] = useState(new Set(["1"]));
 
   const [userNames, setUserNames] = useState({});
@@ -183,8 +70,22 @@ const Chat = ({ conversations }) => {
       </ScrollView>
     );
   }, [arrayValues]);
-  
+
   return (
+    // <View style={styles.container}>
+    //   <Text style={styles.label}>Chat With </Text>
+    //   <View style={styles.topContentContainer}>{topContent}</View>
+    //   <FlatList
+    //     data={users}
+    //     keyExtractor={(item) => item.id}
+    //     renderItem={({ item }) => (
+    //       <TouchableOpacity style={styles.listItem}>
+    //         <Text style={styles.name}>{item.name}</Text>
+    //         <Text style={styles.email}>{item.email}</Text>
+    //       </TouchableOpacity>
+    //     )}
+    //   />
+    // </View>
 
     <View style={styles.container}>
   <Text style={styles.label}>Chat With</Text>
@@ -329,11 +230,5 @@ const styles = StyleSheet.create({
 //   },
 // });
 
-export default Chat;
-
-
-
-
-
-
+export default ChatRoom;
 

@@ -6,6 +6,8 @@ const { width } = Dimensions.get('window');
 import { MaterialIcons} from '@expo/vector-icons'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getAds } from '../service/adService';
+import { useNavigation } from '@react-navigation/native';
+
 
 const truncateString = (str, maxLength) => {
   if(str.length <= maxLength ){
@@ -20,6 +22,7 @@ const ProductGrid = () => {
 
   const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState([]);
+  const navigation = useNavigation()
 
   useEffect(() => {
     const fetchAds = async () => {
@@ -44,11 +47,15 @@ const ProductGrid = () => {
       </View>
     );
   }
+
+  const handlePress = (ad) => {
+    navigation.navigate('View', { productDetails: ad });
+  };
   return (
 
     <View style={styles.recommendedGrid}>
           { ads.length == 0 && !loading ? <Text>No ads shown</Text> : ads.map((ad, index) => (
-            <TouchableOpacity key={index} style={styles.recommendedItem}>
+            <TouchableOpacity key={index} style={styles.recommendedItem} onPress={() => handlePress(ad)}>
               <Image source={{ uri: ad.images[0] }} style={styles.recommendedImage} />
               <View style={styles.recommendedTextContainer}>
                 <Text style={styles.recommendedTitle}>{truncateString(ad.title, 21)}</Text>

@@ -1,11 +1,49 @@
-import React from 'react'
-import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React, {useState, useEffect} from 'react'
+import { View, Image, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { MaterialIcons} from '@expo/vector-icons'
 import { ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Ionicons';
 import OtherKarrot from '../components/OtherKarrot';
+import { auth } from '../../firebase';
+import { getUserById } from '../service/userService';
+import UpdateModal from '../Modals/UpdatedModel';
+import AddressModel from '../Modals/AddressModel';
+import PhoneModel from '../Modals/PhoneModel';
+import PasswordModel from '../Modals/PasswordModel';
 
 const MyKarrot = () => {
+
+    const [userData, setUserData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const [isEditModal, setIsEditModal] = useState(false)
+    const [isPasswordModal, setIsPasswordModal] = useState(false)
+    const [isAddressModal, setIsAddressModal] = useState(false)
+    const [isPhoneModal, setIsPhoneModal] = useState(false)
+    
+  
+    useEffect(() => {
+      const fetchUserData = async () => {
+        const user = auth.currentUser; // Get the logged-in user
+  
+        if (user) {
+          try {
+            const data = await getUserById(user.uid); // Fetch user data using UID
+            setUserData(data);
+            // Alert.alert(data)
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+            // Alert.alert(error)
+          } finally {
+            setLoading(false);
+          }
+        } else {
+          setLoading(false);
+        }
+      };
+  
+      fetchUserData();
+    }, []);
 
     const initialCategories = [
         { name: 'Favorites', icon: <MaterialIcons name="favorite" size={24} color="#FC9D4F" />, count: 0 },
@@ -26,8 +64,8 @@ const MyKarrot = () => {
         </View>
         <View style={{ overflow: 'hidden', marginBottom: 10, justifyContent: 'center', alignItems: 'center'}}> 
             <View>
-                <Text style={{textAlign: 'center', fontSize: 25, color: '#FC9D4F'}}>Gadget Dealers</Text>
-                <Text style={{textAlign: 'center', color: '#7C7C7C'}}>karrot@gmail.com</Text>
+                <Text style={{textAlign: 'center', fontSize: 25, color: '#FC9D4F'}}>{userData.name}</Text>
+                <Text style={{textAlign: 'center', color: '#7C7C7C'}}>{userData.email}</Text>
             </View>
         </View>
         <View style={{ height: 200, borderRadius: 10, overflow: 'hidden', marginTop: 10, justifyContent: 'center'}}> 
@@ -56,21 +94,25 @@ const MyKarrot = () => {
             <Text style={{color: '#FC9D4F'}}>Edit Profile</Text>
             <View style={{ flexDirection: 'row', marginRight: 15, justifyContent: 'space-between' }}>
             <TouchableOpacity 
+              onPress={() => setIsEditModal(true)}
                 style={{backgroundColor: '#F1E4CA', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <MaterialIcons name="save-alt" size={24} color="#ff7637" />
               </TouchableOpacity>
               <TouchableOpacity 
+                onPress={() => setIsPasswordModal(true)}
                 style={{backgroundColor: '#F1E4CA', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <Icon name="key-outline" size={25} style={{ alignSelf: 'center', color: '#ff7637' }} />
               </TouchableOpacity>
               <TouchableOpacity 
+                onPress={() => setIsPhoneModal(true)}
                 style={{backgroundColor: '#F1E4CA', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <Icon name="call-outline" size={25} style={{ alignSelf: 'center', color: '#ff7637' }} />
               </TouchableOpacity>
               <TouchableOpacity 
+                onPress={() => setIsAddressModal(true)}
                 style={{backgroundColor: '#F1E4CA', borderRadius: 50, padding: 4, marginRight: 10}}
                 >
                 <MaterialIcons name="place" size={25} color="#ff7637" /> 
@@ -79,6 +121,11 @@ const MyKarrot = () => {
           </View>
         </View>
         <OtherKarrot />
+        <UpdateModal isEditModal={isEditModal} setIsEditModal={setIsEditModal} />
+        <AddressModel isAddressModal={isAddressModal} setIsAddressModal={setIsAddressModal} />
+        <PhoneModel isPhoneModal={isPhoneModal} setIsPhoneModal={setIsPhoneModal} />
+        <PasswordModel isPasswordModal={isPasswordModal} setIsPasswordModal={setIsPasswordModal} />
+        
         <View style={{marginBottom: 40}}></View>
         </ScrollView>
     </View>

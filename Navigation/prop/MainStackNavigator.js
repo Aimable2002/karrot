@@ -13,6 +13,11 @@ import Vehicle from '../../app/BackScreen/Vehicle.jsx';
 import Electronics from '../../app/BackScreen/Electronics.jsx';
 import Sport from '../../app/BackScreen/Sport.jsx';
 import Fashion from '../../app/BackScreen/Fashion.jsx';
+import ChatRoom from '../../app/BackScreen/ChatRoom.jsx';
+import Conversation from '../../app/screen/Conversation.js';
+import Login from '../../app/screen/Login.jsx';
+import Register from '../../app/screen/Register.jsx';
+import SeeProduct from '../../app/BackScreen/SeeProduct.jsx';
 
 const Stack = createStackNavigator();
 
@@ -75,7 +80,7 @@ const MainStackNavigator = () => {
           },
         })}
       />
-      <Stack.Screen name='Chat Room' component={Chat} options={{headerShown: true}} />
+      <Stack.Screen name='Chat Room' component={Conversation} options={{headerShown: true}} />
       <Stack.Screen name='Notification' component={Notification} options={{headerShown: true}} />
       <Stack.Screen name='wallet' component={Wallet} options={{headerShown: true}} />
       <Stack.Screen name='Post' component={PostAdd} options={{headerShown: true}} />
@@ -83,6 +88,10 @@ const MainStackNavigator = () => {
       <Stack.Screen name='Electronics' component={Electronics} options={{headerShown: true}} />
       <Stack.Screen name='Sport' component={Sport} options={{headerShown: true}} />
       <Stack.Screen name='Fashion' component={Fashion} options={{headerShown: true}} />
+      <Stack.Screen name='Start Chatting' component={ChatRoom} options={{headerShown: true}} />
+      <Stack.Screen name='Login' component={Login} options={{headerShown: true}} />
+      <Stack.Screen name='Register' component={Register} options={{headerShown: true}} />
+      <Stack.Screen name='View' component={SeeProduct} options={{headerShown: true}} />
     </Stack.Navigator>
   );
 };
